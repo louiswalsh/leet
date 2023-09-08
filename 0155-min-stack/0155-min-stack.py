@@ -30,7 +30,8 @@ class MinStack(object):
         """
         :rtype: int
         """
-        return min(self.stack)
+        stackSet = set(self.stack)
+        return min(stackSet)
         
 
 
