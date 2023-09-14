@@ -11,18 +11,15 @@ class Solution(object):
 
         while mLeft <= mRight:
             guess = (mLeft + mRight) // 2
-            print(guess)
             
             if matrix[guess][0] <= target <= matrix[guess][len(matrix[guess]) - 1]:
                 matrixIndex = guess
                 break
 
             elif target < matrix[guess][0]:
-                print('in smaller matrix')
                 mRight = guess - 1
 
             else: 
-                print('in larger matrix')
                 mLeft = guess + 1
 
         if matrixIndex == None:
