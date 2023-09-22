@@ -7,7 +7,7 @@ class Solution(object):
         nums.sort()
         base, left, right = 0, 1, len(nums) - 1
         solutions = []
-        print(nums)
+
         while base < len(nums):
             
             while left < right:
@@ -29,6 +29,5 @@ class Solution(object):
             left = base + 1
             right = len(nums) - 1
 
-        print(solutions)
         return solutions
 
