@@ -15,10 +15,7 @@ class Solution(object):
 
         while slow and slow.next:
             slow = slow.next
-            lenCounter += 1
-
-        print(lenCounter)
-        
+            lenCounter += 1        
 
         if (lenCounter == n):
             return head.next
@@ -28,7 +25,6 @@ class Solution(object):
         for node in range(lenCounter - n - 1):
             fast = fast.next
 
-        print(fast.next)
         fast.next = fast.next.next
 
         return head
