@@ -22,6 +22,7 @@ class Solution(object):
 
         fast = head
 
+        # Stop at the node before the n'th 
         for node in range(lenCounter - n - 1):
             fast = fast.next
 
