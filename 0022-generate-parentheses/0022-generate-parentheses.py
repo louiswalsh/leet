@@ -4,11 +4,11 @@ class Solution(object):
         :type n: int
         :rtype: List[str]
         """
-        solutions = []
+        solutions = set()
 
         def genPar(builder, openers, closers):
             if len(builder) == n * 2:
-                solutions.append(builder)
+                solutions.add(builder)
                 return
             
             if openers < n:
@@ -20,7 +20,6 @@ class Solution(object):
 
         
         genPar('', 0, 0)
-        print(solutions)
         return solutions
 
 
