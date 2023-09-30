@@ -12,22 +12,14 @@ class Solution(object):
         if not head or not head.next:
             return head
 
-        counter = 1
-        counterHead = head
-        stack = []
+        prev = None
+        curr = head
 
-        while counterHead and counterHead.next:
-            stack.append(counterHead.val)
-            counterHead = counterHead.next
-            counter += 1
-        
-        stack.append(counterHead.val)
-        returner = head
+        while curr:
+            next = curr.next
+            curr.next = prev
+            prev = curr
+            curr = next
 
-        while head and head.next:
-            head.val = stack.pop()
-            head = head.next
-        head.val = stack.pop()
-
-        return returner
-        
+        print(prev)
+        return prev
