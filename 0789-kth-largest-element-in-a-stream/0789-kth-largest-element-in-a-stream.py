@@ -1,15 +1,19 @@
 class KthLargest(object):
-    kthLargest = None
-    k = None
-    nums = []
 
     def __init__(self, k, nums):
         """
         :type k: int
         :type nums: List[int]
         """
-        self.k = k
-        self.nums = nums
+        self.nums = nums[:k]
+        self.size = k
+
+        heapq.heapify(self.nums)
+
+        for i in range(k, len(nums)):
+            if nums[i] > self.nums[0]:
+                heappushpop(self.nums, nums[i])
+
         
 
     def add(self, val):
@@ -17,15 +21,13 @@ class KthLargest(object):
         :type val: int
         :rtype: int
         """
-        self.nums.append(val)
-        self.recalculate()
+        if len(self.nums) < self.size:
+            heappush(self.nums, val)
+        elif(val > self.nums[0]):
+            heapreplace(self.nums, val)
         
-        return self.kthLargest
+        return self.nums[0]
         
-    def recalculate(self):
-        self.nums.sort()
-        self.kthLargest = self.nums[-self.k]
-
 
 
 # Your KthLargest object will be instantiated and called as such:
