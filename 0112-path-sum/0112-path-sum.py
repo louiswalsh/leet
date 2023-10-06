@@ -13,18 +13,21 @@ class Solution(object):
         """
         hasSum = [False]
 
-        def dfs(root, runningTotal):
+        def dfs(root, runningSum):
             if not root:
                 return
 
-            if runningTotal + root.val == targetSum and not root.left and not root.right:
-                hasSum[0] = True
-            
-            else:
-                dfs(root.left, runningTotal + root.val)
-                dfs(root.right, runningTotal + root.val)
-                
+            runningSum += root.val
 
+            if runningSum == targetSum and not root.left and not root.right:
+                hasSum[0] = True
+
+            else:
+                dfs(root.right, runningSum)
+                dfs(root.left, runningSum)
+
+        
         dfs(root, 0)
 
         return hasSum[0]
+            
