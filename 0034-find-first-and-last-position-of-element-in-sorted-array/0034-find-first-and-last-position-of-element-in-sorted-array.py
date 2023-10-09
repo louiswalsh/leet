@@ -5,37 +5,31 @@ class Solution(object):
         :type target: int
         :rtype: List[int]
         """
-        
-        l, r = 0, len(nums) - 1
-        index = -1
+        left, right = -1, -1
+        low, high = 0, len(nums) - 1
 
-        while l <= r:
-            val = l + (r - l) // 2
-            guess = nums[val]
+        # Binary search for the left boundary
+        while low <= high:
+            mid = low + (high - low) // 2
+            if nums[mid] == target:
+                left = mid
+                high = mid - 1  # Continue searching in the left half
+            elif nums[mid] < target:
+                low = mid + 1
+            else:
+                high = mid - 1
 
-            if guess == target:
-                index = val
-                break
+        low, high = 0, len(nums) - 1
 
-            elif guess > target:
-                r = val - 1
-            else: 
-                l = val + 1
+        # Binary search for the right boundary
+        while low <= high:
+            mid = low + (high - low) // 2
+            if nums[mid] == target:
+                right = mid
+                low = mid + 1  # Continue searching in the right half
+            elif nums[mid] < target:
+                low = mid + 1
+            else:
+                high = mid - 1
 
-        
-        if index == -1:
-            return [-1, -1]
-
-        answer = [index, index]
-
-        i = index
-        while i > 0 and nums[i - 1] == target:
-            answer[0] -= 1
-            i -= 1
-
-        i = index
-        while i < len(nums) - 1 and nums[i + 1] == target:
-            answer[1] += 1
-            i += 1
-
-        return answer
+        return [left, right]
