@@ -16,7 +16,6 @@ class Solution(object):
             for otherWord in strs[1:]:
                 if possiblePrefix != otherWord[0:charIndex + 1]:
                     return possiblePrefix[:-1]
-                
-
+            
 
         return base
