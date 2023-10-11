@@ -7,6 +7,5 @@ class Solution(object):
         
         s = strip(s)
         sList = s.split(' ')
-        print(sList[-1])
 
         return len(sList[-1])
