@@ -10,29 +10,24 @@ class Solution(object):
         :type root: TreeNode
         :rtype: int
         """
-        numbers = []
+        array = []
 
-        def dfs(root, currNum):
-            if not root:
-                return
-            
-            currNum = str(currNum) + str(root.val)
-
+        def dfs(root, builtStr):
+            builtStr += str(root.val)
             if not root.left and not root.right:
-                numbers.append(currNum)
+                array.append(builtStr)
+                return
 
-            else:
-                dfs(root.left, currNum)
-                dfs(root.right, currNum)
+            if root.left:
+                dfs(root.left, builtStr)
 
-        
+            if root.right:
+                dfs(root.right, builtStr)
+
         dfs(root, '')
-        result = 0
-        
-        for n in numbers:
-            result += int(n)
-
-        return result
-
-
-        
+        ret = 0
+        for n in array:
+            print(n)
+            ret += int(n)
+        return ret
+            
