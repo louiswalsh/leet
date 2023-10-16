@@ -4,23 +4,18 @@ class Solution(object):
         :type height: List[int]
         :rtype: int
         """
+        # [1, 3, 6, 2, 3]
 
-        maximumWater = 0
+        l, r = 0, len(height) - 1
+        maxWater = 0
 
-        if len(height) == 2:
-            return min(height[0], height[1])
+        while l < r:
+            maxWater = max((min(height[l], height[r]) * (r - l)), maxWater)
 
-        leftIndex, rightIndex = 0, len(height) - 1
+            if height[r] > height[l]:
+                l += 1
+            else:
+                r -= 1
 
-        while leftIndex < rightIndex:
-            water = min(height[leftIndex], height[rightIndex]) * (rightIndex - leftIndex)
+        return maxWater
 
-            maximumWater = max(maximumWater, water)
-
-            if height[leftIndex] < height[rightIndex]:
-                leftIndex += 1
-            else: 
-                rightIndex -= 1
-
-        return maximumWater
-        
