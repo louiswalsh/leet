@@ -4,34 +4,50 @@ class Solution(object):
         :type grid: List[List[int]]
         :rtype: int
         """
+        somethingChanged = False
+
         rows, cols = len(grid), len(grid[0])
-        fresh, time = 0, 0
-        q = collections.deque()
+
+        rotten = collections.deque()
+
+        for r in range(rows):
+            for c in range(cols):
+                if grid[r][c] == 2:
+                    rotten.append([r, c])
+                    hasRotten = True
+        
+        visited = []
+        directions = [[1, 0], [-1, 0], [0, 1], [0, -1]]
+
+        timer = 0
+
+        while rotten:
+            somethingChanged = True
+            for position in range(len(rotten)):
+                # [0, 0]
+                poppedRotten = rotten.popleft()
+
+                for directionRow, directionCol in directions:
+                    obs = [poppedRotten[0] + directionRow, poppedRotten[1] + directionCol]
+                    if obs[0] < 0 or obs[0] >= rows or obs[1] < 0 or obs[1] >= cols:
+                        continue
+                    if grid[obs[0]][obs[1]] == 1 and obs not in visited:
+                        visited.append(obs)
+                        grid[obs[0]][obs[1]] = 2
+                        rotten.append(obs)
+            timer += 1
+            
+
 
         for r in range(rows):
             for c in range(cols):
                 if grid[r][c] == 1:
-                    fresh += 1
-                if grid[r][c] == 2:
-                    q.append([r, c])
+                    return -1
 
-        directions = [[0, 1], [0, -1], [1, 0], [-1, 0]]
+        if somethingChanged:
+            return timer - 1
 
-        while q and fresh > 0:
-            print()
-            for i in range(len(q)):
-                val = q.popleft()
-                print(val)
-                for dr, dc in directions:
-                    row = val[0] + dr
-                    col = val[1] + dc
+        return timer
 
-                    if row in range(rows) and col in range(cols) and grid[row][col] == 1:
-                        grid[row][col] = 2
-                        q.append((row, col))
-                        fresh -= 1
-                
-            print(fresh, q)
-            time += 1
 
-        return time if fresh == 0 else -1
+            
